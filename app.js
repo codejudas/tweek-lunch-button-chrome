@@ -130,7 +130,7 @@ function showPage(pageName) {
     setWindowSize(PAGE_SIZES[pageName]);
     if (pageName === 'menu-page') {
         $('#unsub-button').text('Unsubscribe');
-        $.ajax(SERVER_BASE + '/menus', {
+        $.ajax(SERVER_BASE + '/menu', {
             method: 'GET',
             success: function(data, status) { 
                 updateMainPage(data);
