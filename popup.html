@@ -2,77 +2,7 @@
     <head>
         <script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="./app.js"></script>
-        <style>
-            body {
-                width: 300px;
-                height: 300px;
-                font-size: 14px;
-            }
-
-            img#logo {
-                display: inline-block;
-                width: 32px;
-                height: 32px;
-                vertical-align: middle;
-            }
-
-            #title {
-                display: inline-block;
-                vertical-align: middle;
-            }
-
-            #status {
-                font-weight:700;
-                margin-top: 10px;
-            }
-
-            .button {
-                display: inline-block;
-                width: 100px;
-                height: 30px;
-                line-height: 30px;
-                background-color: #36a64f;
-                color: white;
-                cursor: pointer;
-                border-radius: 2px;
-                font-weight: 700;
-            }
-            .button:hover {
-                background-color: #37ba54
-            }
-
-            #register-button {
-                margin-top:5px;
-            }
-            #username-input {
-                height: 30px;
-                display: inline-block;
-                font-size: 14px;
-                padding-left: 5px;
-                margin-right: 5px;
-            }
-
-            .page {
-                display: none;
-            };
-
-            #username {
-                text-transform: capitalize;
-            }
-
-            .header {
-                font-weight: 700;
-                font-size: 16px;
-            }
-
-            #unsub-button {
-                background-color: #f44e42;
-            }
-            #unsub-button:hover {
-                background-color: #f76359
-            }
-
-        </style>
+        <link rel="stylesheet" type="text/css" href="./style.css">
     </head>
     <body>
         <center>
@@ -100,9 +30,24 @@
         </div>
         <div id="menu-page" class="page">
             <center>
-                <div class="header">Hi there, <span id='username'>{user}</span></div>
+                <div class="header">Hi there <span id='username'>{user}</span></div>
                 <br>
-                <div>Put the menu here?</div>
+                <div id="error">
+                    <img id="error-img" src="./no-food.png" />
+                    <div>We could not find a menu for today. Check back tomorrow!</div>
+                </div>
+                <div id="menu">
+                    <div id="vendor">
+                        <img id="vendor-image" src="" />
+                        <div id="vendor-name">Vendor Name</div>
+                    </div>
+                    <div class="menu-item template">
+                        <div class="menu-item-name">Grilled Chicken (Egg Free Option Available)</div>
+                        <div class="menu-item-descr">Grilled dark meat, lemongrass chicken, with pickled carrots, pickled daikon, cucumber, cilantro, jalapenos and mayonnaise on a French roll</div>
+                    </div>
+                    <div id="menu-items">
+                    </div>
+                </div>
                 <br>
                 <div id="unsub-button" class="button">Unsubscribe</div>
             </center>

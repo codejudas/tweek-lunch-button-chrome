@@ -1,0 +1,127 @@
+body {
+    width: 300px;
+    height: 300px;
+    font-size: 14px;
+}
+
+img#logo {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+}
+
+#title {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#status {
+    font-weight:700;
+    margin-top: 10px;
+}
+
+.button {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #36a64f;
+    color: white;
+    cursor: pointer;
+    border-radius: 2px;
+    font-weight: 700;
+}
+.button:hover {
+    background-color: #37ba54
+}
+
+#register-button {
+    margin-top:5px;
+}
+#username-input {
+    height: 30px;
+    display: inline-block;
+    font-size: 14px;
+    padding-left: 5px;
+    margin-right: 5px;
+}
+
+.page {
+    display: none;
+};
+
+#username {
+    text-transform: capitalize;
+}
+
+.header {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+#unsub-button {
+    background-color: #36a64f;
+    margin-bottom: 15px;
+}
+#unsub-button:hover {
+    background-color: #f76359;
+    transition: background-color 1s;
+}
+
+#error-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+#menu {
+    display: none;
+}
+
+#vendor {
+    background-color: #36a64f;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
+
+#vendor-image {
+    width: 300px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+#vendor-name {
+    color: white;
+    text-align: center;
+    line-height: 25px;
+    border-top: 1px solid white;
+    font-weight: 700;
+}
+
+.menu-item {
+    text-align: left;
+    border-left: 3px solid #51c66b;
+    padding-left: 10px;
+    padding-bottom: 3px;
+}
+
+.menu-separator {
+    height: 15px;
+}
+
+.template {
+    display: none;
+}
+
+.menu-item-name {
+    font-weight: 700;
+}
+
+.menu-item-descr {
+    font-size: 10px;
+    opacity: 0.8;
+}

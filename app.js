@@ -1,6 +1,6 @@
 const SENDER_ID = '953118966912';
 // const REGISTER_GCM_URL = 'http://107.170.59.11:5000/gcm';
-const REGISTER_GCM_URL = 'http://47332dd0.ngrok.io/gcm';
+const SERVER_BASE = 'http://47332dd0.ngrok.io';
 
 window.onload = function() {
     console.log('Starting');
@@ -46,7 +46,7 @@ window.onload = function() {
             if (!registrationId) return;
 
             console.log('Registering with time2eat server');
-            $.ajax(REGISTER_GCM_URL, {
+            $.ajax(SERVER_BASE + '/gcm', {
                 method: 'POST',
                 data: {'User': user, 'Token': registrationId},
                 success: function(data, status) { 
@@ -71,7 +71,7 @@ window.onload = function() {
         console.log('Unsubscribe');
         $('#unsub-button').text('Bye...');
         chrome.storage.local.get('user', function(result) {
-            $.ajax(REGISTER_GCM_URL, {
+            $.ajax(SERVER_BASE + '/gcm', {
                 method: 'DELETE',
                 data: {'User': result['user']},
                 success: function(data, status) {
@@ -96,6 +96,10 @@ window.onload = function() {
             chrome.browserAction.setBadgeText({text: '' + val})
             chrome.browserAction.setBadgeBackgroundColor({color: '#36a64f'})
         });
+        var notification = new Notification('Lunch has arrived!', {
+            icon: './icon.png',
+            body: 'Catered by (restaurant name).'
+        });
     });
 
     console.log('Initialized!');
@@ -118,11 +122,50 @@ function showPage(pageName) {
     console.log('Showing page %s', pageName);
     if (pageName === 'menu-page') {
         $('#unsub-button').text('Unsubscribe');
+        $.ajax(SERVER_BASE + '/menu', {
+            method: 'GET',
+            success: function(data, status) { 
+                updateMainPage(data);
+            },
+            error: function(xhr, textStatus, errStr) {
+                console.log('Error loading menu: %s, %s', textStatus, errStr);
+                errorMainPage();
+            }
+
+        });
         chrome.storage.local.get('user', function(result) {
             $('#username').text(result['user']);
         });
     }
     $('#' + pageName).show();
+}
+
+function updateMainPage(data) {
+    console.log('Updating main page');
+    console.log(data);
+    $('#error').hide();
+    $('#menu').show();
+    $('#vendor-image').prop('src', data.vendorImage);
+    $('#vendor-name').text(data.vendor);
+    $('#menu-items').empty();
+    $.each(data.menuItems, function(i) {
+        let item = data.menuItems[i];
+        let entry = $('.menu-item.template').clone();
+        $('#menu-items').append(entry);
+        entry.removeClass('template');
+        entry.find('.menu-item-name').text(item.item);
+        entry.find('.menu-item-descr').text(item.description);
+        entry.show();
+        if (i < (data.menuItems.length -1)) {
+            $('#menu-items').append('<div class="menu-separator"></div>');
+        }
+    })
+}
+
+function errorMainPage() {
+    console.log('Showing error main page');
+    $('#error').show();
+    $('#menu').hide();
 }
 
 
