@@ -2,6 +2,13 @@ const SENDER_ID = '953118966912';
 // const REGISTER_GCM_URL = 'http://107.170.59.11:5000/gcm';
 const SERVER_BASE = 'http://47332dd0.ngrok.io';
 
+const PAGE_SIZES = {
+    'register-page': [300, 180],
+    'confirm-page': [300, 175],
+    'menu-page': [300, 500],
+    'error-menu-page': [300, 290]
+};
+
 window.onload = function() {
     console.log('Starting');
 
@@ -120,9 +127,10 @@ function transitionPage(from, to) {
 
 function showPage(pageName) {
     console.log('Showing page %s', pageName);
+    setWindowSize(PAGE_SIZES[pageName]);
     if (pageName === 'menu-page') {
         $('#unsub-button').text('Unsubscribe');
-        $.ajax(SERVER_BASE + '/menu', {
+        $.ajax(SERVER_BASE + '/menus', {
             method: 'GET',
             success: function(data, status) { 
                 updateMainPage(data);
@@ -166,6 +174,14 @@ function errorMainPage() {
     console.log('Showing error main page');
     $('#error').show();
     $('#menu').hide();
+    setWindowSize(PAGE_SIZES['error-menu-page']);
 }
 
-
+function setWindowSize(input) {
+    let width = input[0];
+    let height = input[1];
+    $('html').width(width + 20);
+    $('html').height(height + 20);
+    $('body').width(width);
+    $('body').height(height);
+}

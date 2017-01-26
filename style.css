@@ -1,7 +1,6 @@
 body {
-    width: 300px;
-    height: 300px;
     font-size: 14px;
+    margin: 10px;
 }
 
 img#logo {
