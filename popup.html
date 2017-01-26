@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="./app.js"></script>
+        <style>
+            body {
+                width: 300px;
+                height: 300px;
+                font-size: 14px;
+            }
+
+            img#logo {
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+                vertical-align: middle;
+            }
+
+            #title {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            #status {
+                font-weight:700;
+                margin-top: 10px;
+            }
+
+            .button {
+                display: inline-block;
+                width: 100px;
+                height: 30px;
+                line-height: 30px;
+                background-color: #36a64f;
+                color: white;
+                cursor: pointer;
+                border-radius: 2px;
+                font-weight: 700;
+            }
+            .button:hover {
+                background-color: #37ba54
+            }
+
+            #register-button {
+                margin-top:5px;
+            }
+            #username-input {
+                height: 30px;
+                display: inline-block;
+                font-size: 14px;
+                padding-left: 5px;
+                margin-right: 5px;
+            }
+
+            .page {
+                display: none;
+            };
+
+            #username {
+                text-transform: capitalize;
+            }
+
+            .header {
+                font-weight: 700;
+                font-size: 16px;
+            }
+
+            #unsub-button {
+                background-color: #f44e42;
+            }
+            #unsub-button:hover {
+                background-color: #f76359
+            }
+
+        </style>
+    </head>
+    <body>
+        <center>
+            <img id="logo" src="./icon.png"/>
+            <h1 id="title">Time2Eat</h1>
+        </center>
+        <div id="register-page" class="page">
+            <center>
+                <div>Looks like this is your first time using Time2Eat.</div>
+                <br>
+                <div>We need to know who you are to send you chrome notifications when lunch arrives.</div>
+                <br>
+                <input id="username-input" type="text" placeholder="Twilio Username" />
+                <div id="register-button" class="button">Register</div>
+            </center>
+        </div>
+        <div id="confirm-page" class="page">
+            <center>
+                <div class="header">You're all set!</div>
+                <br>
+                <div>We'll send you chrome notifications when lunch has arrived.</div>
+                <br>
+                <div id="next-button" class="button">Next</div>
+            </center>
+        </div>
+        <div id="menu-page" class="page">
+            <center>
+                <div class="header">Hi there, <span id='username'>{user}</span></div>
+                <br>
+                <div>Put the menu here?</div>
+                <br>
+                <div id="unsub-button" class="button">Unsubscribe</div>
+            </center>
+        </div>
+    </body>
+</html>
