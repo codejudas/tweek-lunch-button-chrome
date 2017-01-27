@@ -78,21 +78,21 @@ window.onload = function() {
         transitionPage('confirm-page', 'menu-page');
     });
 
-    $('#unsub-button').click(function() {
+    $('#signout').click(function() {
         console.log('Unsubscribe');
-        $('#unsub-button').text('Bye...');
+        $('#signout .action-text').text('Bye...');
         chrome.storage.local.get('user', function(result) {
             $.ajax(SERVER_BASE + '/gcm', {
                 method: 'DELETE',
                 data: {'User': result['user']},
                 success: function(data, status) {
                     chrome.storage.local.set({user: null});
-                    $('#unsub-button').text('Success');
+                    $('#signout .action-text').text('Success');
                     transitionPage('menu-page', 'register-page');
                 },
                 error: function(xhr, textStatus, errStr) {
                     console.log('Error unsubscribing: %s, %s', textStatus, errStr);
-                    $('#unsub-button').text('Failed :(');
+                    $('#signout .action-text').text('Failed :(');
                 }
             });
         });
@@ -130,7 +130,7 @@ function showPage(pageName) {
     console.log('Showing page %s', pageName);
     setWindowSize(PAGE_SIZES[pageName]);
     if (pageName === 'menu-page') {
-        $('#unsub-button').text('Unsubscribe');
+        $('#signout .action-text').text('Sign Out');
         $.ajax(SERVER_BASE + '/menu', {
             method: 'GET',
             success: function(data, status) { 

@@ -2,6 +2,7 @@
     <head>
         <script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="./app.js"></script>
+        <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="./style.css">
     </head>
     <body>
@@ -31,6 +32,16 @@
         <div id="menu-page" class="page">
             <center>
                 <div class="header">Hi there <span id='username'>{user}</span></div>
+                <div id="actions">
+                    <span id="settings" class="action">
+                        <span class="action-text">Settings</span>
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                    </span>
+                    <span id="signout" class="action">
+                        <span class="action-text">Sign Out</span>
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </span>
+                </div>
                 <br>
                 <div id="error">
                     <img id="error-img" src="./no-food.png" />

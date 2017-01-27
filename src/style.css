@@ -124,3 +124,20 @@ img#logo {
     font-size: 10px;
     opacity: 0.8;
 }
+
+#actions {
+    margin-top: 5px;
+}
+
+.action {
+    opacity: 0.5;
+    cursor: pointer;
+}
+.action:hover {
+    opacity: 0.8;
+    transition: opacity 0.5s;
+}
+
+#settings {
+    margin-right: 15px;
+}
