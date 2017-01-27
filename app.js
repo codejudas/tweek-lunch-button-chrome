@@ -8,6 +8,8 @@ const PAGE_SIZES = {
     'error-menu-page': [300, 290]
 };
 
+let curPage = null;
+
 window.onload = function() {
     console.log('Starting');
 
@@ -96,6 +98,18 @@ window.onload = function() {
         });
     });
 
+    $("#username-input").keyup(function(event){
+        if(event.keyCode == 13) {
+            $("#register-button").click();
+        }
+    });
+
+    $(window).keyup(function(event) {
+        if(event.keyCode == 13 && curPage === 'confirm-page') {
+            $("#next-button").click();
+        }
+    });
+
     console.log('Initialized!');
 };
 
@@ -133,6 +147,7 @@ function showPage(pageName) {
         });
     }
     $('#' + pageName).show();
+    curPage = pageName;
 }
 
 function updateMainPage(data) {
