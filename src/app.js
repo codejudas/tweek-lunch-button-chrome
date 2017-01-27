@@ -2,10 +2,11 @@ const SENDER_ID = '953118966912';
 const SERVER_BASE = 'http://107.170.59.11:5000';
 
 const PAGE_SIZES = {
-    'register-page': [300, 180],
-    'confirm-page': [300, 175],
+    'register-page': [300, 220],
+    'confirm-page': [300, 195],
     'menu-page': [300, 500],
-    'error-menu-page': [300, 290]
+    'error-menu-page': [300, 290],
+    'settings-page': [300, 250]
 };
 
 let curPage = null;
@@ -45,7 +46,7 @@ window.onload = function() {
     $('#register-button').click(function() {
         console.log('Register pressed');
         updateRegisterButton('Registering...', true);
-        let user = $('#username-input').val();
+        let user = $('#username-input').val().toLowerCase().trim();
         console.log('User %s', user);
         if (!user || !user.length) {
             updateRegisterButton('Register', false);
@@ -98,6 +99,59 @@ window.onload = function() {
         });
     });
 
+    $('#settings').click(function() {
+        console.log('Settings pressed');
+        transitionPage('menu-page', 'settings-page');
+    });
+
+    $('#back-button').click(function() {
+        console.log('Back to menu');
+        transitionPage('settings-page', 'menu-page');
+    });
+
+    $('#update-settings-button').click(function() {
+        console.log('Updating settings');
+        $("#settings-error-msg").hide();
+        $('#update-settings-button').text('Updating...');
+        let channels = [];
+        $('input.channel-checkbox').each(function(i, elem) {
+            elem = $(elem);
+            if (elem.is(':checked')) {
+                channels.push(elem.val());
+            }
+        });
+
+        console.log(channels);
+        let phoneNumber = $('#pn-input').val().trim() || ''; 
+        console.log(phoneNumber);
+        if (channels.includes('sms') && (!phoneNumber.length || !phoneNumber.startsWith('+'))) {
+            console.log('invalid phone number');
+            $('#num-error-msg').show();
+            $('#num-error-msg').text('Invalid');
+        }
+
+        chrome.storage.local.get('user', function(res) {
+            if (!res['user']) {
+                $('#update-settings-button').text('Failed :(');
+                return;
+            }
+            let body = res['user'] + ': ' + channels.join(',');
+            console.log(body);
+
+            $.ajax(SERVER_BASE + '/users', {
+                method: 'POST',
+                data: {From: phoneNumber, Body: body},
+                success: function(data, status) {
+                    transitionPage('settings-page', 'menu-page');
+                },
+                error: function(xhr, textStatus, errStr) {
+                    console.log('Error updating preferences: %s, %s', textStatus, errStr);
+                    $('#update-settings-button').text('Failed :(');
+                }
+            });
+        });
+    });
+
     $("#username-input").keyup(function(event){
         if(event.keyCode == 13) {
             $("#register-button").click();
@@ -140,10 +194,32 @@ function showPage(pageName) {
                 console.log('Error loading menu: %s, %s', textStatus, errStr);
                 errorMainPage();
             }
-
         });
+        setUsername();
+    }
+    else if (pageName === 'settings-page') {
+        setUsername();
+        $('update-settings-button').text('Save');
         chrome.storage.local.get('user', function(result) {
-            $('#username').text(result['user']);
+            if (result['user']) {
+                $.ajax(SERVER_BASE + '/users/' + result['user'], {
+                    method: 'GET',
+                    success: function(data, status) { 
+                        $('input.channel-checkbox').each(function(i, elem) {
+                            elem = $(elem);
+                            if (data['notifications'][elem.val()]) {
+                                elem.prop('checked', true);
+                            } else {
+                                elem.prop('checked', false);
+                            }
+                        });
+                        $("#pn-input").val(data['phoneNumber'] || 'Unknown Number');
+                    },
+                    error: function(xhr, textStatus, errStr) {
+                        console.log('Error loading user info: %s, %s', textStatus, errStr);
+                    }
+                });
+            }
         });
     }
     $('#' + pageName).show();
@@ -186,4 +262,14 @@ function setWindowSize(input) {
     $('html').height(height + 20);
     $('body').width(width);
     $('body').height(height);
+}
+
+function setUsername() {
+    chrome.storage.local.get('user', function(result) {
+        if (result['user']) {
+            $('.username').text(result['user']);
+        } else {
+            $('.username').text('{username}');
+        }
+    });
 }

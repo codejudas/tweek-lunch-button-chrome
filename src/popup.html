@@ -2,6 +2,7 @@
     <head>
         <script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="./app.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
         <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="./style.css">
     </head>
@@ -29,9 +30,38 @@
                 <div id="next-button" class="button">Next</div>
             </center>
         </div>
+        <div id="settings-page" class="page">
+            <center>
+                <div class="header">Hi there <span class="username">{user}</span></div>
+            </center>
+            <br>
+            <div id="preferences">
+                <div class="preference-header">Notification Preferences:</div>
+                <div id="notification-channels">
+                    <label class="channel">
+                        <input type="checkbox" class="channel-checkbox" value="chrome" checked disabled>
+                        <span>Chrome</span>
+                    </label>
+                    <label class="channel">
+                        <input type="checkbox" class="channel-checkbox" value="slack">
+                        <span>Slack</span>
+                    </label>
+                    <label class="channel">
+                        <input type="checkbox" class="channel-checkbox" value="sms">
+                        <span id='sms-text'>SMS</span>
+                        <input id="pn-input" type="text" placeholder="Phone number" />
+                        <span id="num-error-msg"></span>
+                    </label>
+                </div>
+            </div>
+            <center>
+                <div id="update-settings-button" class="button">Save</div>
+                <div id="back-button" class="button">Back</div>
+            </center>
+        </div>
         <div id="menu-page" class="page">
             <center>
-                <div class="header">Hi there <span id='username'>{user}</span></div>
+                <div class="header">Hi there <span class="username">{user}</span></div>
                 <div id="actions">
                     <span id="settings" class="action">
                         <span class="action-text">Settings</span>
@@ -42,7 +72,6 @@
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                     </span>
                 </div>
-                <br>
                 <div id="error">
                     <img id="error-img" src="./no-food.png" />
                     <div>We could not find a menu for today. Check back tomorrow!</div>
@@ -59,8 +88,6 @@
                     <div id="menu-items">
                     </div>
                 </div>
-                <br>
-                <div id="unsub-button" class="button">Unsubscribe</div>
             </center>
         </div>
     </body>

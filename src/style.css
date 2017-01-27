@@ -1,6 +1,7 @@
 body {
     font-size: 14px;
     margin: 10px;
+    font-family: 'Open Sans', Arial;
 }
 
 img#logo {
@@ -52,7 +53,7 @@ img#logo {
     display: none;
 };
 
-#username {
+.username {
     text-transform: capitalize;
 }
 
@@ -127,6 +128,7 @@ img#logo {
 
 #actions {
     margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .action {
@@ -140,4 +142,43 @@ img#logo {
 
 #settings {
     margin-right: 15px;
+}
+
+#preferences {
+    padding-left: 15px;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+.preference-header {
+    margin-bottom: 5px;
+}
+
+#notification-channels {
+    padding-left: 10px;
+}
+
+.channel {
+    display: block;
+    line-height: 25px;
+}
+
+.channel-checkbox {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+#pn-input {
+    height: 25px;
+    width: 90px;
+    margin-left: 10px;
+}
+
+#num-error-msg {
+    font-size: 10px;
+    display: none;
+    color: red;
+    font-weight: 700;
 }
