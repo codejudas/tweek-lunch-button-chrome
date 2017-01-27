@@ -1,6 +1,5 @@
 const SENDER_ID = '953118966912';
-// const REGISTER_GCM_URL = 'http://107.170.59.11:5000/gcm';
-const SERVER_BASE = 'http://47332dd0.ngrok.io';
+const SERVER_BASE = 'http://107.170.59.11:5000';
 
 const PAGE_SIZES = {
     'register-page': [300, 180],
@@ -15,6 +14,9 @@ window.onload = function() {
     if (!Notification || Notification.permission !== 'granted') { 
         console.log('Notifications not supported');
     }
+
+    chrome.browserAction.setBadgeText({text: ''})
+    chrome.browserAction.setBadgeBackgroundColor({color: [0, 0, 0, 0]})
 
     chrome.storage.local.get('gcmToken', function(result) {
         console.log('Registering with google');
@@ -94,21 +96,6 @@ window.onload = function() {
         });
     });
 
-    chrome.gcm.onMessage.addListener(function (message) {
-        console.log('GOT A GCM MESSAGE');
-        console.log(message);
-        chrome.browserAction.getBadgeText({}, function(result) {
-            let val = parseInt(result) || 0
-            val = val + 1;
-            chrome.browserAction.setBadgeText({text: '' + val})
-            chrome.browserAction.setBadgeBackgroundColor({color: '#36a64f'})
-        });
-        var notification = new Notification('Lunch has arrived!', {
-            icon: './icon.png',
-            body: 'Catered by (restaurant name).'
-        });
-    });
-
     console.log('Initialized!');
 };
 
@@ -150,7 +137,7 @@ function showPage(pageName) {
 
 function updateMainPage(data) {
     console.log('Updating main page');
-    console.log(data);
+    chrome.storage.local.set({menu: data});
     $('#error').hide();
     $('#menu').show();
     $('#vendor-image').prop('src', data.vendorImage);
